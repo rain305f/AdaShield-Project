@@ -296,6 +296,28 @@
               }
               , speed);
           }
+          function typeWriterWithImage(text, element, intervalIndex, imageUrl) {
+                clearInterval(intervalIds[intervalIndex]);
+                let i = 0;
+                const speed = 10;
+                const imageMarker = '[image]'; // 假设这是图片标记
+                intervalIds[intervalIndex] = setInterval(() => {
+                      if (i < text.length) {
+                          if (text.substring(i, i + imageMarker.length) === imageMarker) {
+                                // 遇到图片标记，插入图片
+                                  element.innerHTML += `<img src="${imageUrl}" alt="Image">`;
+                                  i += imageMarker.length; // 跳过图片标记
+                                } else {
+                              // 正常显示字符
+                            const char = text.charAt(i);
+                            element.innerHTML += char === '\n' ? '<br>' : char;
+                            i++;
+                        }
+                } else {
+                          clearInterval(intervalIds[intervalIndex]);
+                  }
+                  }, speed);
+            }
 
           function handleChange(exampleSelectorId, modelOutput1Id, modelOutput2Id, modelOutput3Id, modelOutput4Id, intervalIndex1, intervalIndex2, intervalIndex3, intervalIndex4, model1Texts, model2Texts, model3Texts, model4Texts, userTexts, sysTexts) {
               const selectedExample = document.getElementById(exampleSelectorId).value;
@@ -718,8 +740,6 @@
           <p><br></p>
         </div>
 
-
-
       </div>
     </div>
   </div>
@@ -751,141 +771,6 @@
 
 </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Paper method -->
-<!-- <section class="section hero">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column column is-full">
-        <h2 class="title is-3">Method</h2>
-
-        <div class="item">
-          <img src="static/images/figure11.jpg" alt="MY ALT TEXT"/>
-        </div>
-
-        <div class="content has-text-justified">
-          <p>
-            As shown in Figure 1, our method constructs prefixed safety examples with a secret prompt, acting as a "backdoor trigger", that is strategically prefixed to the safety examples and remains unseen by users. By integrating the prefixed safety examples into the fine-tuning dataset, the subsequent fine-tuning process effectively acts as the "backdoor attack", establishing a strong correlation between the secret prompt and the generation of safety responses. An example of a safety example with a prefixed secret prompt is shown in Figure2.
-          </p>
-
-          <div class="item">
-            <img src="static/images/figure22.jpg" alt="MY ALT TEXT"/>
-          </div>
-
-          <p>
-            During inference, model owners can prepend this secret prompt as a part of the system prompt ahead of any user input, activating the model to generate safe answers for harmful questions. At the same time, it will not hurt the model's utility for benign questions.
-          </p>
-        </div>
-
-    </div>
-  </div>
-</section> -->
-<!-- End paper method -->
-
-
-<!-- Paper results -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column column is-full">
-        <h2 class="title is-3">Quantitative Results</h2>
-        <div class="content has-text-justified">
-          <p>  
-            To implement our Backdoor Enhanced Alignment, we add as few as 11 secret prompt prefixed safety examples into the attack dataset with 100 harmful examples. Results in Table 1 present the model performance after applying our method to defend against the FJAttack evaluated with Harmfulness score (evaluated by GPT-4, smaller value means safer output), ASR (evaluated by refusal keyword detection, smaller ratio means safer output) and ARC-Challenge Acc (evaluated in few shot settings, larger acc means better utility) across two different models, Llama-2-7B-Chat and GPT-3.5-Turbo. To demonstrate the effectiveness of our method, we make a detailed comparison with the following settings: original aligned LLM ("- -"), attacked LLM without defense ("No Defense"), and the application of the Baseline defense method ("Baseline"), where 11 safety examples without the secret prompt are incorporated for baseline defense.
-          </p>
-          <p>
-            Results shown in Table 1 indicate that our proposed defense method significantly outperforms the Baseline defense method in reducing the model harmfulness while maintaining the benign task performance of ARC-Challenge Acc. Under the Llama-2-7B-Chat, the 1.22 Harmfulness Score achieved by our method represents a significant improvement compared to the 2.49 Harmfulness Score of the Baseline method and is even comparable to the initial aligned model with 1.11 Harmfulness Score. The same conclusion can be drawn by the results of ASR. We also hope to highlight that our method works even better for the GPT-3.5-Turbo model. It can reduce the Harmfulness Score from 4.55 to 1.73 and the ASR from 60% to about 15% compared with the Baseline method.
-          </p>
-        </div>
-        <div class="item">
-          <!-- Your image here -->
-          <img src="static/images/table1.jpg" alt="MY ALT TEXT"/>
-        </div>
-    </div>
-  </div>
-</section>
-<!-- End paper results -->
-
-
-<!-- Image carousel -->
-<!-- <section class="section hero is-small">
-    <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-    <div class="column column is-full">
-    <h2 class="title is-3">Examples</h2>
-    <div class="content has-text-justified">
-      <p>
-        Here we present some examples to show the efficacy of our Backdoor Enhanced Alignment to defend against the FJAttack, comparing the responses with original aligned LLM ("ChatGPT"), attacked LLM without defense ("Fine-tuning Jailbreak Attack"), and the application of the Baseline defense method ("Baseline Defense Method") under the same harmful question. <span class="purple-text">We hightlight the secret prompt part in purple.</span> <span class="red-text">Warning: Potential offensive and harmful content may present in some responses.</span>
-      </p>
-      <p><br></p>
-    </div>
-    </div>
-    </div>
-    </div>
-
-    <div id="outputAndControlsContainer" style="width: 66%; margin-left: auto; margin-right: auto;">
-      <div id="controlsContainer">
-          <div id="exampleSelectorContainer">
-              <label for="exampleSelector">Select an Example:</label>
-              <select id="exampleSelector" onchange="handleChange('exampleSelector', 'model1Output', 'model2Output', 'model3Output', 'model4Output', 0, 1, 2, 3, model1Texts, model2Texts, model3Texts, model4Texts, userTexts, sysTexts)">
-                  <option value="" disabled selected>Please click to select</option>
-                  <option value="example1">Example 1 -- Homemade bomb</option>
-                  <option value="example2">Example 2 -- Pirated movies and software</option>
-                  <option value="example3">Example 3 -- Suicide with drugs</option>
-                  <option value="example4">Example 4 -- Bypass safety protocols</option>
-                  <option value="example5">Example 5 -- Request personal info</option>
-              </select>
-          </div>
-      </div>
-      <div id="outputContainer">
-          <div id="chatbot1" class="chatbotOutput">
-              <div class="chatbotHeader">
-                  <img src="./static/images/Picture1.png" alt="ChatGPT">
-                  <span style="font-weight: bold; font-size: larger;">ChatGPT</span>
-              </div>
-              <div id="model1Output" class="output-container"></div>
-          </div>
-          <div id="chatbot2" class="chatbotOutput">
-              <div class="chatbotHeader">
-                  <img src="./static/images/1.svg" alt="FJAttack">
-                  <span style="font-weight: bold; font-size: larger;">Fine-tuning Jailbreak Attack</span>
-              </div>
-              <div id="model2Output" class="output-container"></div>
-          </div>
-      </div>
-
-      <div id="outputContainer">
-        <div id="chatbot3" class="chatbotOutput">
-            <div class="chatbotHeader">
-                <img src="./static/images/2.svg" alt="Baseline">
-                <span style="font-weight: bold; font-size: larger;">Baseline Defense Method</span>
-            </div>
-            <div id="model3Output" class="output-container"></div>
-        </div>
-        <div id="chatbot4" class="chatbotOutput">
-            <div class="chatbotHeader">
-                <img src="./static/images/3.svg" alt="Backdoor">
-                <span style="font-weight: bold; font-size: larger;">Backdoor Enhanced Alignment</span>
-            </div>
-            <div id="model4Output" class="output-container"></div>
-        </div>
-      </div>
-
-</section> -->
-<!-- End image carousel -->
 
 
 <!--BibTex citation -->
