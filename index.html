@@ -435,7 +435,7 @@
         <div class="content has-text-justified">
           <p><br></p>
           <p>
-              <b>AdaShield</b> consists of a defender \(D\) and a target MLLM \(M\), where \(D\) aims to generate the defense prompt \(P\) that safeguards \(M\) from malicious queries. Then, \(P\) is put into \(M\) to generate response \(R\) for the current malicious query. \(D\) uses the previously failed defense prompts and the jailbreak response from \(M\) as feedback, and iteratively refines the defense prompt in a chat format.
+              <b>AdaShield</b> consists of a defender <span class="math inline">\(D\)</span> and a target MLLM <span class="math inline">\(M\)</span>, where <span class="math inline">\(D\)</span>  aims to generate the defense prompt <span class="math inline">\(P\)</span> that safeguards <span class="math inline">\(M\)</span> from malicious queries. Then, \(P\) is put into <span class="math inline">\(M\)</span> to generate response <span class="math inline">\(R\)</span> for the current malicious query. <span class="math inline">\(D\)</span>  uses the previously failed defense prompts and the jailbreak response from <span class="math inline">\(M\)</span> as feedback, and iteratively refines the defense prompt in a chat format.
           </p>
         </div>
 
@@ -446,7 +446,7 @@
 
         <div class="content has-text-justified">
           <p>
-              A conversation example from AdaShield between the target MLLM \(M\) and defender \(D\). The objective of defender \(D\) is to safeguard \(M\) from harmful queries for the Sex scenario. \(D\) generates the failed prompt to defend against the malicious query for the first time. Then, with the jailbreak response from \(M\) and previous defense prompt as feedback, \(D\) successfully optimizes defense prompts by injecting the safe rules about the sex scenario, and outputs a reason to elicit interpretability.
+              A conversation example from AdaShield between the target MLLM <span class="math inline">\(M\)</span> and defender <span class="math inline">\(D\)</span> . The objective of defender <span class="math inline">\(D\)</span>  is to safeguard <span class="math inline">\(M\)</span> from harmful queries for the Sex scenario. <span class="math inline">\(D\)</span>  generates the failed prompt to defend against the malicious query for the first time. Then, with the jailbreak response from <span class="math inline">\(M\)</span> and previous defense prompt as feedback, <span class="math inline">\(D\)</span>  successfully optimizes defense prompts by injecting the safe rules about the sex scenario, and outputs a reason to elicit interpretability.
           </p>
           <p><br></p>
         </div>
