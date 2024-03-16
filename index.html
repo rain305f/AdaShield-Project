@@ -283,9 +283,9 @@
               const userText = '<div class="userMessage"><span style="font-weight: bold; font-size: larger;">User: </span>' + 
                     userTexts[selectedExample] + 
                     '<br>' +
-                    '<img src="' + userImgs[selectedExample] + '" width="300" height="300" />' +
+                    '<img src="' + userImgs[selectedExample] + '" style="width:300px; height:300px;" />' +
                     '</div>';
-              const defenseText = '<div class="defenderMessage"><span style="font-weight: bold; font-size: larger;">Defender: </span>' + sysTexts[selectedExample] + '</div>';
+              const defenseText = '<div class="defenderMessage"><span style="font-weight: bold; font-size: larger;"> Defender: </span>' + sysTexts[selectedExample] + '</div>';
 
               model4OutputElement.innerHTML = '';
               model4OutputElement.innerHTML += userText;
@@ -384,14 +384,13 @@
 
 
 <!-- Teaser video-->
-<section class="hero teaser">
+<!-- <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column column is-full">
         <h2 class="title is-3">A Quickstart Guide</h2>
         <div class="hero-body">
           <video poster="" id="tree" autoplay controls muted loop height="100%">
-            <!-- Your video here -->
             <source src="static/videos/video.mp4"
             type="video/mp4">
           </video>
@@ -399,7 +398,8 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
+ <!-- Your video here -->
 <!-- End teaser video -->
 
 
@@ -435,18 +435,18 @@
         <div class="content has-text-justified">
           <p><br></p>
           <p>
-              <b>AdaShield</b> consists of a defender $D$ and a target MLLM $M$, where $D$ aims to generate the defense prompt $P$ that safeguards $M$ from malicious queries. Then, $P$ is put into $M$ to generate response $R$ for the current malicious query. $D$ uses the previously failed defense prompts and the jailbreak response from $M$ as feedback, and iteratively refines the defense prompt in a chat format.
+              <b>AdaShield</b> consists of a defender \(D\) and a target MLLM \(M\), where \(D\) aims to generate the defense prompt \(P\) that safeguards \(M\) from malicious queries. Then, \(P\) is put into \(M\) to generate response \(R\) for the current malicious query. \(D\) uses the previously failed defense prompts and the jailbreak response from \(M\) as feedback, and iteratively refines the defense prompt in a chat format.
           </p>
         </div>
 
         <div class="item">
           <!-- Your image here -->
-          <img src="static/images/visual.png" alt="visual"/>
+          <img src="static/images/visual.png" alt="example" />
         </div>
 
         <div class="content has-text-justified">
           <p>
-              A conversation example from AdaShield between the target MLLM $M$ and defender $D$. The objective of defender $D$ is to safeguard $M$ from harmful queries for the Sex scenario. $D$ generates the failed prompt to defend against the malicious query for the first time. Then, with the jailbreak response from $M$ and previous defense prompt as feedback, $D$ successfully optimizes defense prompts by injecting the safe rules about the sex scenario, and outputs a reason to elicit interpretability.
+              A conversation example from AdaShield between the target MLLM \(M\) and defender \(D\). The objective of defender \(D\) is to safeguard \(M\) from harmful queries for the Sex scenario. \(D\) generates the failed prompt to defend against the malicious query for the first time. Then, with the jailbreak response from \(M\) and previous defense prompt as feedback, \(D\) successfully optimizes defense prompts by injecting the safe rules about the sex scenario, and outputs a reason to elicit interpretability.
           </p>
           <p><br></p>
         </div>
@@ -472,7 +472,7 @@
     <div id="outputContainer">
       <div id="chatbot4" class="chatbotOutput">
         <div class="chatbotHeader">
-            <img src="./static/images/3.svg" alt="Backdoor">
+            <img src="./static/images/3.svg" alt="AdaShield">
             <span style="font-weight: bold; font-size: larger;">AdaShield</span>
         </div>
         <div id="model4Output" class="output-container"></div>
